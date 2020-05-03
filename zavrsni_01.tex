@@ -1,0 +1,63 @@
+
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage[croatian,english]{babel}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{graphicx, fancyhdr, times, tgtermes}
+\usepackage{cite}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+\usepackage{setspace}
+
+\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{verbatim}
+\usepackage{subfig}
+
+
+\usepackage{nonfloat}
+\usepackage{parskip} %razmak izmedju paragrafa
+
+
+\usepackage{listings}
+\lstset{
+language=Python,
+basicstyle=\footnotesize\ttfamily,
+columns=fullflexible,
+showstringspaces=false
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,
+}
+
+\renewcommand*\lstlistingname{Ispis}
+%\newcommand{\headerdata}[3]{{\large\bfseries\center #1\\ \vspace*{0.3cm} #2\\ \vspace*{0.3cm} #3\par}}
+%\newcommand{\thesisdata}[3]{{\large\bfseries\raggedright #1\\ \vspace*{0.5cm} #2\\ \vspace*{0.5cm} #3\par}}
+
+\newcommand{\headerdata}[3]{
+	{\large\bfseries\center 
+		{\Large #1}\\ \vspace*{0.3cm} 
+		{\large #2}\\ \vspace*{0.3cm} 
+		{\normalfont #3}\par}
+}
+
+
+\usepackage{array}
+
+\newcommand{\thesisdata}[3]{
+	{\large\bfseries
+		\begin{tabular}{>{\raggedleft}p{3cm}p{7cm}<{\vspace*{0.5cm}}}
+			Kandidat:& {\normalfont #1}\\
+			Naslov rada:& {\normalfont #2}\\
+			Mentor:& {\normalfont #3}
+		\end{tabular}
+	}
+}
+
+
+
+
+
