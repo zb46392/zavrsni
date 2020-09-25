@@ -1,4 +1,8 @@
-\section{Poker}
+\section{Implementacija}
+---> NEKI UVOD <---
+\subsection{Implementacija igre}
+
+\subsubsection{Poker}
 Jako poznata kartaška igra, nastala u americi, čiji korjeni dosežu do perzijkse igre As-Nas. 
 Kroz 19. stoljeće igra se razvijala sa raznim dodacima i varijacijama.
 Postaje jako popularna kroz 20. stoljeće kada su se počeli odražvati turniri. Ta popularnost se proširila svijetom uz igranje i održavanje turnira putem interneta, te turniri koji snimaju 
@@ -33,7 +37,7 @@ Ruke poredane od najslabije do najjače:
 	\item Kraljevska skala u boji (eng. \textit{royal flush}): 10, dečko, kraljica, kralj, as u istim simbolima.
 \end{itemize}
 
-\subsection{Pravila igre}
+\subsubsection{Pravila igre}
 Igra koja se implementirala se naziva \emph{Limit Texas hold'em tournament}, i pravila su sljedeća. 
 Potrebno je bar dva igrača, tri da bude zanimljivo pa do nekih desetak (nema neke fiksne gornje granice, 
 ali najčešće je deset). Prije početka igre svi igrači uplaćuju dogovoreni iznos novca za sudjelovanje u igri, te dobije za uzvrat žetone vrijednosti uloženog novca. Igrači sjedu za ovalnim stolom i jednega od igrača se određuje kao diler. Diler dobije poseban žeton koji ga vidljivo označava kao takvog. Karte se izmišaju i svakom igraču se dodjeli dvije karte, u smjeru kazaljke na satu. Ove dvije karte su za ostale igrače tajna, znači svaki igrač nastoji da jedini vidi te karte, zapamti ih i po mogućnosti do kraja kruga ih drži okrenute naopako na stolu. U prvoj fazi \emph{pre flop} nakon djeljenje karata prvi igrač lijevo od dilera je prisiljen uložit žetone u visini pola vrijednosti minimalnog uloga, taj ulog se naziva \emph{small blind}, a slijedeći ulaže \emph{big blind} cijelokupan minimalni ulog, također prisiljeno. Prisiljeni ulozi služe kako bi u svakom krugu postojala neka dobit, a i da skrati igru koja i onako zna potrajati satima. Ostali igrači nakon njih imaju mogućnost birat hoće pratit (eng. \textit{call}), znači da moraju sve skupa uložit koliki je trenutačni največi ulog, dali će odustat i preklope karte (eng. \textit{fold}), gdje odbacuju karte iz ruku i izključeni su iz igre do kraja kruga ili će povisiti (eng. \textit{raise}) ulog, u kojem slučaju trenutačni ulog postane jednak prošlom plus minimalni iznos za ulaganje. U trenutku kada su ostali igrači napravili potez, prvi igrač do dilera mora nadoplatit ostali isnos za pratit ili izabrat neki od drugih poteza i na kraju igrač koji je mora prisilno uložit minimalni ulog ima mogućnost napravit potez, s tim ako nije bilo povisivanje uloga umisto pratit (eng. \textit{call}) ima potez potvrde (eng. \textit{check}), što znači da nema namjeru povisiti ulog niti izostat iz trenutačnog kruga. Kada svi igrači potvrdu potez diler izbacuje jednu kartu iz igre, reče se da se karta gori (eng. \textit{burn}), te na srid stola okrene 3 karte vidljive svima, to je \emph{flop} faza. 
@@ -46,3 +50,11 @@ Karte okrenute na srid stola su karte zajednice (eng. \textit{community cards}) 
 
 \emph{Tournament} podrazumjeva da svi igrači na početku uplate jednak iznos i igra se dok svi ispadnu osim jednog, dok u \emph{cash game} može igrač ponovno kupit žetone za nastavit igrat, može odustat od igre 
 iako nije izgubi sve žetone te ih unovčit mogu i čak naknadno doć novi igrači.
+
+\subsubsection{Program}
+---> STRUKTURA I K\^OD <---
+
+
+\subsection{Implementacija agenta}
+\subsection{Učenje}
+\subsection{Rezultati}
