@@ -21,17 +21,59 @@
 \usepackage{nonfloat}
 \usepackage{parskip} %razmak izmedju paragrafa
 
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
 
 \usepackage{listings}
-\lstset{
-language=Python,
-basicstyle=\footnotesize\ttfamily,
-columns=fullflexible,
-showstringspaces=false
-frame=single,                   % adds a frame around the code
-tabsize=2,                      % sets default tabsize to 2 spaces
-captionpos=b,
+%\lstset{
+%	language=Python,
+%	basicstyle=\footnotesize\ttfamily,
+%	columns=fullflexible,
+%	showstringspaces=false,
+%	frame=single,                   % adds a frame around the code
+%	tabsize=2,                      % sets default tabsize to 2 spaces
+%	captionpos=b
+%}
+\newcommand\pythonstyle{\lstset{
+	language=Python,
+	basicstyle=\footnotesize\ttfamily,
+	columns=fullflexible,
+	showstringspaces=false,
+	frame=single,                   	% adds a frame around the code
+	tabsize=2,                      	% sets default tabsize to 2 spaces
+	captionpos=b,
+	otherkeywords={self, None},			% Add keywords here
+	keywordstyle=\ttb\color{deepblue},
+	emph={__init__},          			% Custom highlighting
+	emphstyle=\ttm\color{deepred},    	% Custom highlighting style
+	stringstyle=\color{deepgreen}
+}}
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+	\pythonstyle
+	\lstset{#1}
 }
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+		\pythonstyle
+		\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+
 
 \renewcommand*\lstlistingname{Ispis}
 %\newcommand{\headerdata}[3]{{\large\bfseries\center #1\\ \vspace*{0.3cm} #2\\ \vspace*{0.3cm} #3\par}}
