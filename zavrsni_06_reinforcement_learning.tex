@@ -31,7 +31,10 @@ o tome koji je unaprijed definirani zaključak kojeg je trebao donijeti se prila
 
 
 \subsection{Povijest pojačanog učenja}
----> POVJEST ODE <---
+Što se tiče povijesti pojačanog učenja vrijedi spomenuti dvije glavne grane koje su tada postojale kao samostalne dok se danas isprepliću. Jedna od njih je nastala kao dio psihologije životinjskog učenja te se fokusirala na učenje metodom pokušaja i pogreške. Druga pak koristi vrijednosne funkcije i dinamičko programiranje te se bavi problemom optimalnog upravljanja i njegovog rješenja. Prva grana pojačanog učenja je zapravo i dovela do otkrića pojačanog učenja početkom 1980-tih godina te se može reći kako kao takva proizlazi iz nekih najranijih djela umjetne inteligencije, iako se sama ideja takvog načina učenja, metode pokušaja i pogreške, proteže unazad čak do 1850-tih godina. Edward Thorndike je bio prvi koji je uspio objasniti bit učenja metodom pokušaja i pogreške te ju je nazvao "Zakon učinka" (eng. \textit{Law of effect}): "Od nekoliko odgovora danih na istu situaciju, oni koji su povezani ili pomno prate životinjsku volju, pod jednakim uvjetima, čvršće će biti povezani sa situacijom, tako da će, kad se ponovi, biti vjerojatnije da će se i oni ponoviti; oni koji su povezani ili pomno prate nelagodu životinje, pod jednakim uvjetima, imati će oslabljene veze s tom situacijom, pa će, kada se ponovi, biti manje vjerojatno da će se i ona ponoviti"~\cite{reinforcement_learning}.
+
+Alan Turing je opisao sistem „zadovoljstvo – patnja” koji je funkcionirao u skladu sa Zakonom učinka. To je ujedno bila i jedna od najranijih ideja kako implementirati metodu pokušaja i učenja sa umjetnom inteligencijom. Kod druge metode, pojam "optimalna kontrola" počeo se upotrebljavati za opisivanje problema dizajniranja regulatora koji minimalizira ili maksimizira mjeru ponašanja dinamičkog sustava tijekom vremena. Dinamičko programiranje smatra se jedinim izvedivim načinom rješavanja općenito stohastičkih problema optimalnog upravljanja. I dalje je učinkovitiji i više se primjenjuje od ijedne druge opće metode iako njezini računski zahtjevi eksponencijalno rastu sa brojem varijabli stanja. Puno vremena je trebalo da bi se prepoznavale veze između optimalne kontrole i dinamičkog programiranja i učenja. Postupak djelovanja na pojačano učenje pomoću MDP (Markov Decision Processes) formalizma s kojim je radio Chris Watkins 1989. godine je zapravo vrijeme kada se dogodila potpuna integracija metoda dinamičkog programiranja s internetskim učenjem.
+Ove dvije glavne grane pojačanog učenja su se u kasnim 1980-tim godinama međusobno povezale sa trećom, manje izraženom granom, koja se bavi metodom vremenske razlike.
 
 \subsection{Elementi pojačanog učenja}
 Osnovni građevni blokovi na kojem se temelju metode pojačanog učenja su:
@@ -77,8 +80,8 @@ Očekivana nagrada $G_t$ se računa kao zbroj svih budućih nagrada $G_T = R_{t+
 \end{equation}
 
 \subsection{Politike i funkcije vrijednosti}
-Politika određuje agentov sljedeći potez, kroz skupljanje iskustva ta politika se može mijenjati. Označava se sa $\pi$ i definira distribuciju vjerojatnosti preko $a \in A(s)$ za svaki $s \in S$, tako da konačne vjerojatnosti svake akcije $a = A_t$ u stanju $s = S_t$ opisane su policom $\pi(a|s)$.
-Za opisivanje agentu dali se nalazi u dobrom stanju ili opisivanje agentu koliko je dobra akcija za neko stanje zadužene su funkcije vrijednosti. Koliko je dobro stanje, odnosno koliko je dobra neka akciju u nekom stanju agentu se daje do znanja pomoću vrijednosti očekivane nagrade. Funkcije vrijednosti se definiraju u odnosu na policu, pošto ona utječe na donošivanje agentove odluke.
+Politika određuje agentov sljedeći potez, kroz skupljanje iskustva ta politika se može mijenjati. Označava se sa $\pi$ i definira distribuciju vjerojatnosti preko $a \in A(s)$ za svaki $s \in S$, tako da konačne vjerojatnosti svake akcije $a = A_t$ u stanju $s = S_t$ opisane su politikom $\pi(a|s)$.
+Za opisivanje agentu dali se nalazi u dobrom stanju ili opisivanje agentu koliko je dobra akcija za neko stanje zadužene su funkcije vrijednosti. Koliko je dobro stanje, odnosno koliko je dobra neka akcija u nekom stanju agentu se daje do znanja pomoću vrijednosti očekivane nagrade. Funkcije vrijednosti se definiraju u odnosu na policu, pošto ona utječe na donošivanje agentove odluke.
 Jedna od funkcije vrijednosti je funkcija vrijednosti stanja i pomoću nje agent dobije informaciju o očekivane nagrade, dok prati policu $\pi$, počevši od stanja $s$ u trenutku $t$. Formalno se označava matematičkom jednadžbom~\ref{eq:state_value_function}.
 \begin{equation}\label{eq:state_value_function}
 	\begin{split}
@@ -86,7 +89,7 @@ Jedna od funkcije vrijednosti je funkcija vrijednosti stanja i pomoću nje agent
 				 &= \mathbb{E}_\pi\left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} | S_t = s\right]
      \end{split}
 \end{equation}
-S druge strane postoji funkcija vrijednosti akcija $q_\pi(s, a))$ koja opisuje koliko je dobra akcija $a$ u stanju $s$ dok se prati politika $\pi$. Tako da funkcija računa vrijednost očekivane nagrade za svaku akciju i definirana je matematičkom jednadžbom~\ref{eq:action_value_function}.
+S druge strane postoji funkcija vrijednosti akcija $q_\pi(s, a)$ koja opisuje koliko je dobra akcija $a$ u stanju $s$ dok se prati politika $\pi$. Tako da funkcija računa vrijednost očekivane nagrade za svaku akciju i definirana je matematičkom jednadžbom~\ref{eq:action_value_function}.
 \begin{equation}\label{eq:action_value_function}
 \begin{split}
 q_\pi(s, a) &= \mathbb{E}_\pi[G_t | S_t = s, A_t = a] \\
@@ -99,7 +102,7 @@ Slovo $q$ opisuje kvalitetu (eng. \textit{quality}) određene akcije i često se
 Jedna od osnovnih značakih pojačanom učenju koja se ističe, je da algoritam ima neki definirani cilj, prema kojemu teži. Glavni cilj je pronalaženje optimalne politike, koju će agent pratit, kako bi doveo nagradu do najveće moguće razine. Neka politika $\pi$ se smatra boljom od neke druge politike $\pi'$, ili bar jednako dobro, ako za sva moguća stanja nudi višu, ili jednaku nagradu za agenta. Optimalna politika je je ona koja za sva moguća stanja daje najveću nagradu i kada ne postoju neka druga politika koja za neko stanje daje veću nagradu. Također optimalna politika posjeduje njoj pripadajuću optimalnu funkciju vrijednosti stanja, odnosno optimalnu funkciju vrijednosti akcija. Optimalne funkcije se bilježe $v_*$ gdje $v_*(s) = \max_\pi v_\pi(s)$ za funkciju vrijednosti stanja, a za funkcije vrijednosti akcija $q_*$ gdje $q_*(s, a) = \max_\pi q_\pi(s, a)$ i to za sva $s \in S$, te u slučaju funkcije vrijednosti akcija još i za sva $a \in A$.
 
 \subsection{Bellmanova jednadžba optimalnosti}
-U nastavnom djelu ovoga rada usredočenje će biti na $q_*$, tako da se $v_*$ neće razrađivati. To ne znači da to nije primjenivo za $v_*$, ali izrada agenta ide u smjeru q-učenje (eng. \textit{q-learning}), pa je sav daljan opis prilagođen za to. 
+U nastavnom djelu ovoga rada usredočenje će biti na $q_*$, tako da se $v_*$ neće razrađivati. To ne znači da to nije primjenivo za $v_*$, ali izrada agenta ide u smjeru q-učenje (eng. \textit{q-learning}), pa je sav daljan opis prilagođen tome. 
 Po Bellmanovoj jednadžbi, koju bi trebao svaki algoritam kojemu je cilj pronalaženje optimalne funkcije vrijednosti zadovoljiti, svaka očekivana nagrada jednaka je trenutačnoj nagradi dodana na maksimalne buduće nagrade sa popustom. Ima za zadatak pronaći $q_*$ koja zadovoljava jednadžbu~\ref{eq:bellman_optimality_equation}.
 \begin{equation}\label{eq:bellman_optimality_equation}
 q_*(s, a) = \mathbb{E}\left[R_{t+1} + \gamma\max_{a'}q_*(s', a')\right]
@@ -107,125 +110,7 @@ q_*(s, a) = \mathbb{E}\left[R_{t+1} + \gamma\max_{a'}q_*(s', a')\right]
 Trenutačno stanje i akcija predstavljeni su sa $s$ i $a$, iz koji proizlazi nagrada $R_{t+1}$. Pa je toj nagradi za bilo koje buduće stanje $s'$ i buduće akcije $a'$ dodana vrijednost maksimalne buduće nagrade sa popustom. Pošto se donosi optimalnu akciju u stanju $s$, očekuje se da će se u sljedećemu stanju $s'$ moći izvršiti optimalnu akciju $a'$.
 
 \subsection{Q-Učenje}
-Ideja q-učenju jest tablica u kojoj je svaki redak određeno stanje u okolini, a svaki stupac određena akcija za tu okolini. Tako da u svakoj ćeliji se nalazi q-vrijednost za odeđenog para stanja i akcije. Potrebno je odrediti početne q-vrijednosti, za kojo nema neko čvrsto pravilo, neki smisleni pristup je ih postaviti na nulu pošto agent još nije posjetio niti jedno stanje i nema ikakvih informacija o okolini. Neka istraživanja su pokazale da optimističnim pristupom na početno stanje, znači svakoj akciji u novom stanju se dodijeli najveću q-vrijednost, donijelo je bolje rezultate učenja. Prolaženjem kroz stanja okoline i izvršavanje akcije se te q-vrijednosti ažuriraju, tako da češćem izvršavanjem iste akcije u nekom stanju ta q-vrijednost se sve više približava stvarnoj. Za ažuriranje q-vrijednosti u tablici koristi se Bellmannova jednadžba optimalnosti~\ref{eq:bellman_optimality_equation}. Pošto tablica u početku nema korisnih informacija o tome koje akcije poduzeti uvodu se pojmove istraživanja (eng. \textit{exploration}) i iskorištavanje (eng. \textit{exploitation}). Gdje u fazi istraživanja agent donese nasumičnu odluku, tako da u sljedećemu stanju primi nagradu i ovisno o tome može ažurirati q-vrijednost u tablici. Istraživanje služi za prikupljanje informacije o okolini kako bi se u buduće moglo donijeti što bolju odluku. U fazi iskorištavanja agent izvrši po njemu najbolju akciju, odnosno pronađe redak u q-tablici koji odgovara trenutačnom stanju i ovisno o tome koja akcija sadrži najvišu q-vrijednost, ta je akcija izabrana. A ta faza služi za prikupljanje najviše moguće nagrade, što je ipak i agentov glavni zadatak. Primjer q-učenja u pythonu skojim se uspješno učilo igru križić kružić dana je u ispisu~\ref{q_learning}.
-\begin{python}[caption={Standardno q-učenje}, label=q_learning]
-from . import ObservableEnvironment as O_Env
-from agent.base import Base
-from random import random, randint
-from typing import Tuple, Any, Optional
-from datetime import datetime
-
-
-class QLearning(Base):
-    def __init__(self, training_amount: int = 100000):
-        super(Base, self).__init__()
-        self._q_table = {}
-        self._state_actions = {}
-        self._previous_action = None
-        self._current_state = None
-        self._previous_state = None
-        self._init_q_value = 0.0
-        self._learning_rate = 0.3
-        self._gamma = 0.9
-        self._epsilon = 1.0
-        self._epsilon_decay = self._epsilon / training_amount
-
-    def prepare_for_episode(self) -> None:
-        self._previous_action = None
-        self._previous_state = None
-
-    def observe_environment(self, env: O_Env) -> None:
-        if env.state not in self._state_actions.keys():
-            self._add_state_to_q_table(env.state)
-            self._state_actions[env.state] = []
-
-        self._update_q_table(env)
-        self._current_state = env.state
-		
-        if env.is_terminal and self._epsilon > 0:
-            self._epsilon -= self._epsilon_decay
-
-    def choose_action(self, actions: Tuple[Any, ...]) -> Optional[Any]:
-        for action in actions:
-            if action not in self._state_actions[self._current_state]:
-                self._add_action_to_q_table(action)
-                self._state_actions[self._current_state].append(action)
-		
-        if random() < self._epsilon:
-            action = self._choose_random_action(actions)
-        else:
-            action = self._choose_best_action(actions)
-
-        self._previous_state = self._current_state
-        self._previous_action = action
-
-        return action
-	
-    def _add_state_to_q_table(self, state: Tuple[int, ...]) -> None:
-        self._q_table[state] = {}
-	
-    def _add_action_to_q_table(self, action: Any) -> None:
-        self._q_table[self._current_state][action] = self._init_q_value
-	
-    def _update_q_table(self, env: O_Env) -> None:
-        # Calculate new Q-Value (Bellman equation)
-        if len(self._state_actions[env.state]) > 0 \
-            and self._previous_state is not None \
-            and self._previous_action is not None:
-                current_action = self._get_actions_by_value(env.state)[0]
-                old_q = self._q_table[
-                    self._previous_state][self._previous_action]
-		
-            new_q = (1 - self._learning_rate) * old_q + \
-                self._learning_rate * (env.reward + self._gamma * 
-                                        self._q_table[env.state][current_action])
-		
-            self._q_table[self._previous_state][self._previous_action] = new_q
-        elif env.is_terminal:
-            self._q_table[self._previous_state][self._previous_action] = \
-                env.reward
-	
-    @staticmethod
-    def _choose_random_action(actions: Tuple[Any, ...]) -> Any:
-        rnd = randint(0, len(actions) - 1)
-		
-        return actions[rnd]
-	
-    def _choose_best_action(self, actions: Tuple[Any, ...]) -> Any:
-        actions_by_value = self._get_actions_by_value(self._current_state)
-        h_value = self._q_table[self._current_state][actions_by_value[0]]
-        h_actions = []
-        for action in actions_by_value:
-            if self._q_table[self._current_state][action] == h_value \
-                    and action in actions:
-                h_actions.append(action)
-		
-        if len(h_actions) > 0:
-            rnd = randint(0, len(h_actions) - 1)
-            return h_actions[rnd]
-		
-        return None
-	
-    def _get_actions_by_value(self, state: Tuple[int, ...]) -> \
-            Tuple[Any, ...]:
-        return tuple(
-            sorted(
-                self._state_actions[state], 
-                key=lambda action: self._q_table[state][action], 
-                reverse=True)
-        )
-
-\end{python}
-Klasa očekuje okruženje \pythoninline{ObservableEnvironment} jako jednostavna klasa vidljiva u ispisu~\ref{q_learning_observable_environment}, sadrži tri podatka a to su stanje, nagradata i dali je posljedno stanje u epizodi.
-\begin{python}[caption={Očekivano okruženje q-učenja}, label={q_learning_observable_environment}]
-from typing import NamedTuple, Tuple
-	
-class ObservableEnvironment(NamedTuple):
-    state: Tuple[int, ...]
-    reward: float
-    is_terminal: bool
-\end{python}
-Može se primjetit da nije obična klasa, pošto nema iti jedne metode, nego je zapravo struktura, a to se u pythonu postiže nasleđivanjem \pythoninline{NamedTuple}.
+Ideja q-učenju jest tablica u kojoj je svaki redak određeno stanje u okolini, a svaki stupac određena akcija za tu okolini. Tako da u svakoj ćeliji se nalazi q-vrijednost za odeđenog para stanja i akcije. Potrebno je odrediti početne q-vrijednosti, za kojo nema neko čvrsto pravilo, neki smisleni pristup je ih postaviti na nulu pošto agent još nije posjetio niti jedno stanje i nema ikakvih informacija o okolini. Neka istraživanja su pokazale da optimističnim pristupom na početno stanje, znači svakoj akciji u novom stanju se dodijeli najveću q-vrijednost, donijelo je bolje rezultate učenja. Prolaženjem kroz stanja okoline i izvršavanje akcije se te q-vrijednosti ažuriraju, tako da češćem izvršavanjem iste akcije u nekom stanju ta q-vrijednost se sve više približava stvarnoj. Za ažuriranje q-vrijednosti u tablici koristi se Bellmannova jednadžba optimalnosti~\ref{eq:bellman_optimality_equation}. Pošto tablica u početku nema korisnih informacija o tome koje akcije poduzeti uvodu se pojmove istraživanja (eng. \textit{exploration}) i iskorištavanje (eng. \textit{exploitation}). Gdje u fazi istraživanja agent donese nasumičnu odluku, tako da u sljedećemu stanju primi nagradu i ovisno o tome može ažurirati q-vrijednost u tablici. Istraživanje služi za prikupljanje informacije o okolini kako bi se u buduće moglo donijeti što bolju odluku. U fazi iskorištavanja agent izvrši po njemu najbolju akciju, odnosno pronađe redak u q-tablici koji odgovara trenutačnom stanju i ovisno o tome koja akcija sadrži najvišu q-vrijednost, ta je akcija izabrana. A ta faza služi za prikupljanje najviše moguće nagrade, što je ipak i agentov glavni zadatak. 
 
 \subsubsection{Epsilon pohlepna strategija}
 Potreban je neki omjer koji raspoređuje koliko i kada će se istraživati, odnosno iskorištavati. Želi se izbjeći istraživanje kada se posjeduje dovoljno informacija o okolini i izostat maksimalnoj nagradi, a također se želi izbjeći iskorištvati sa nedovoljno informacija o okolini, što isto tako dovodi do neuspješnog prikupljanje maksimalne nagrade. Taj omjer u epsilon pohlepnoj strategiji (eng. \textit{epsilon greedy strategy}) je $\epsilon$ i broj je između 0 i 1. Odluka se donosi na način da se nasumično generira broj između 0 i 1, te ako je taj broj veći od $\epsilon$ onda se iskorištava, znači izabere se akcija koja bi trebala donjeti najvišu nagradu, ako je manji onda se istražuje i izvrši se nasumična akcija. Što dovodi do zaključka da sa $\epsilon = 1$ je 100\% sigurno da će se istraživati a kada je $\epsilon = 0$ se neće nikako. Kako se situacije razlikuju dali agent posjećuje svoje prvo stanje ili je već neko vrijeme proveo u okolini i prošao dosta stanja, se prema tome mora i prilagoditi $\epsilon$. Za prilagođavanje koristi se stopa propadajućeg epsilona (eng. \textit{epsilon decay rate}), tako da na početku je $\epsilon = 1$ i vremenom opada i sve više se približava 0. Znači da je na početku agentu veći prioritet iztraživati okolinu i vremenom sve više i više iskorištava. Po terminologiji algoritama se smatra nekim algoritmom \emph{pohlepnim} kada uzme u obzir samo neposrednu vrijednost, odnosno nagradu, u obzir bez da se razmatra dugoročne posljedice. Pa se zbog toga kaže da agent vremenom postane pohlepan. Najčešće se $\epsilon$ nikad ne dosegne vrijednost nule, nego ga se prestane smanjivati u trenutku kada $\epsilon = 0.1$, tako da u 10\% skučajeva agent i dalje istražuje, kako mu nebi nešto promaklo.
@@ -245,8 +130,22 @@ q^{novi}(s, a) = (1 - \alpha) \cdot \underbrace{q(s, a)}_{\parbox{3em}{\footnote
 \overbrace{\left(R_{t+1} + \gamma\max_{a'}q(s', a')\right)}^{\parbox{3em}{\footnotesize\centering novo iskustvo}}
 \end{equation}
 
+Primjer q-učenja u pythonu skojim se uspješno učilo igru križić kružić dana je u ispisu~\ref{q_learning} koji se nalazi u dodatku.
+
+%\pythonexternal[caption={Standardno q-učenje},label=q_learning]{code/q_learning.py}
+
+Ova klasa nasljeđena je od bazne klase \pythoninline{Base} koja je abstraktna klasa dana u ispisu~\ref{q_learning_base_class}. Definira potpis metode \pythoninline{observe_environment}, \pythoninline{choose_action} te \pythoninline{prepare_for_episode}. 
+
+\pythonexternal[caption=Bazna klasa agenta, label=q_learning_base_class]{code/q_learning_agent_base.py}
+
+Metoda \pythoninline{prepare_for_episode} priprema agenta za novu epizodu i u ovom slučaju samo poništava vrijednosti koje su bili pohranjeni u varijablama koje predstavljaju predhodno stanje i akciju. Nadalje metoda \pythoninline{observe_environment} dodaje stanje u tablicu, ako je prvi put posjećena, poziva funkciju \pythoninline{_update_q_table} i ažurira varijable trenutnog stanja i stope istraživanja. U ovoj cijeloj klasi najzanimljivija je funkcija \pythoninline{_update_q_table} u kojoj se pomoću Bellmanove jednadžbe optimalnosti ažurira ćelija u tablici. Još među bitnim metodama je \pythoninline{choose_action}, koja ovisno o tome dali se istražuje ili iskorištava stanje donese odluku o sljedećoj akciji. Ova implementacija q-učenje očekuje okruženje \pythoninline{ObservableEnvironment} jako jednostavna klasa vidljiva u ispisu~\ref{q_learning_observable_environment}, sadrži tri podatka a to su stanje, nagradata i dali je posljedno stanje u epizodi.
+
+\pythonexternal[caption={Očekivano okruženje q-učenja},label={q_learning_observable_environment}]{code/q_learning_observable_env.py}
+
+Može se primjetit da nije obična klasa, pošto nema iti jedne metode, nego je zapravo struktura, a to se u pythonu postiže nasleđivanjem \pythoninline{NamedTuple}. Na ovaj način se generalizirao postupak q-učenja, da nije strogo vezan za križić-kružič, nego je u stanju učiti bilo koje okruženje koje prosljeđuje agentu informacije o stanju na ovakav način.
+
 \subsection{Neuronska mreža}
-Područje strojnog učenja u kojemu se istražuju i primjenjuju umjetne neuronske mreže (eng. \textit{artificial nerual networks}). U dubokom učenju neuronske mreže na jednoj abstrakntoj razini imitiraju rad i strukturu mozga. Mozak posjeduje ogromnu mrežu stanica, nazvani neuroni, koji su međusobno povezani. Svaki neuron preko svojih hvataljkih prima signal od drugih neurona, obrađuje i prosljeđuje dalje drugim neuronima za daljnu obradu. Što je češća razmjena signala između dva neurona, to njihova veza postaje čvršća te se na taj način utvrđuju pojmove. Ova mreža je složena u slojevima, na način da je svaki neuron povezan sa neuronima iz sljedećeg sloja a nikako iz istog. Sirovi podaci stižu samo prvom sloju neurona, koji obrađeni signal usmjeravaju drugom sloju, takav signal prolazi kroz nekoliko slojeva prije nego se mogu donijeti zaključke. Umjetna neuronska mreža je također sastavljena od slojeva, te se smatra mrežu sa više od dva sloja dubokom. Posebni slojevi su ulazni i izlazni slojevi, gdje ulazni slojevi primaju podatke i izlazni daju neki zaključak. Između njih se mogu nalaziti nekoliko skrivenih slojeva, stime da postoje različite vrste slojeve koji na drugačiji način obrađuju podatke. Osnovni sloj koji se najčešće koristi je potpuno povezani sloj (eng. \textit{fully connected layer}), ponekad i nazvan gusti sloj (eng. \textit{dense layer}). Kod računalne neuronske mreže svaki neuron je neka funkcija, koja prima neki podatak kao ulaz, obrađuje ga te izbaci na izlazu obrađeni podatak koji se šalje sljedećem neuronu na ulaz. Cijela neuronska mreža je kompozicija mnogih funkcija što je također čini funkcijom. Svakom podatku koji ulazi u neuron pridodani su parametri, često nazvani i težine (eng. \textit{weights}), pa se tokom treninga mjenjaju parametri tako da se postige što bolja točnost na izlazu. Na izlazu svakog neurona stoji aktivacijska funkcija koja brojem između nula i jedan opisuje koliko se taj neuron aktivira, tako da nula znači da se neuron nije aktivirao a jedan da se u potpunosti aktivirao. U ovom području jako do izražaja dolaze elementi iz linearne algebre, pošto su parametri i aktivacije vektori, matrice ili tenzori. 
+Područje strojnog učenja u kojemu se istražuju i primjenjuju umjetne neuronske mreže (eng. \textit{artificial neural networks}). U dubokom učenju neuronske mreže na jednoj abstrakntoj razini imitiraju rad i strukturu mozga. Mozak posjeduje ogromnu mrežu stanica, nazvani neuroni, koji su međusobno povezani. Svaki neuron preko svojih hvataljkih prima signal od drugih neurona, obrađuje i prosljeđuje dalje drugim neuronima za daljnu obradu. Što je češća razmjena signala između dva neurona, to njihova veza postaje čvršća te se na taj način utvrđuju pojmove. Ova mreža je složena u slojevima, na način da je svaki neuron povezan sa neuronima iz sljedećeg sloja a nikako iz istog. Sirovi podaci stižu samo prvom sloju neurona, koji obrađeni signal usmjeravaju drugom sloju, takav signal prolazi kroz nekoliko slojeva prije nego se mogu donijeti zaključke. Umjetna neuronska mreža je također sastavljena od slojeva, te se smatra mrežu sa više od dva sloja dubokom. Posebni slojevi su ulazni i izlazni slojevi, gdje ulazni slojevi primaju podatke i izlazni daju neki zaključak. Između njih se mogu nalaziti nekoliko skrivenih slojeva, stime da postoje različite vrste slojeve koji na drugačiji način obrađuju podatke. Osnovni sloj koji se najčešće koristi je potpuno povezani sloj (eng. \textit{fully connected layer}), ponekad i nazvan gusti sloj (eng. \textit{dense layer}). Kod računalne neuronske mreže svaki neuron je neka funkcija, koja prima neki podatak kao ulaz, obrađuje ga te izbaci na izlazu obrađeni podatak koji se šalje sljedećem neuronu na ulaz. Cijela neuronska mreža je kompozicija mnogih funkcija što je također čini funkcijom. Svakom podatku koji ulazi u neuron pridodani su parametri, često nazvani i težine (eng. \textit{weights}), pa se tokom treninga mjenjaju parametri tako da se postige što bolja točnost na izlazu. Na izlazu svakog neurona stoji aktivacijska funkcija koja brojem između nula i jedan opisuje koliko se taj neuron aktivira, tako da nula znači da se neuron nije aktivirao a jedan da se u potpunosti aktivirao. U ovom području jako do izražaja dolaze elementi iz linearne algebre, pošto su parametri i aktivacije vektori, matrice ili tenzori. 
 
 \subsubsection{Učenje neuronske mreže}
 Glavni cilj učenja neuronske mrežeje pronalaženje optimalnih parametri koji najbolje pretvaraju ulazne podatke u željeni izlaz. Postupak se odvija tako da se za neki ulaz u mrežu usporedi izlaz sa željenim izlazom, izračuna se razlika i na osnovu toga se ažuriraju parametri u neuronskoj mreži tako da kada sljedeći put za isti ili sličan ulaz ova razlika bude što manja. Prije početka učenja parametri se inicijaliziraju sa nasumičnim vrijednostima. Za izračun razlike koristi se funkcija gubitaka (eng. \textit{loss function}) koja kao ulaz prima izlaz neuronske mreže i željeni izlaz. Tako da sa nasumičnim parametrima je ova razlika ogromna, a vremenom se ažuriranjem paramterima teži za što manjom razlikom, odnosno da gubitak bude što bliži nuli. Gubitak koji se često koristi je funkcija srednje kvadratne pogreške (eng. \textit{mean squared error}) i opisana je formulom~\ref{eq:mean_squared_error} gdje je $y$ željeni izlaz a $\hat{y}$ izlaz koju je neuronska mreža izbacila. 

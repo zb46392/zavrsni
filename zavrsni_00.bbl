@@ -1,0 +1,31 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{1}
+
+\bibitem{reinforcement_learning}
+Richard S. Sutton \& Andrew~G. Barto, \emph{Reinforcement learning: An
+  introduction}, \url{http://www.incompleteideas.net/book/RLbook2018.pdf},
+  2018.
+
+\bibitem{deep_lizard}
+Deeplizard, \emph{Reinforcement learning - goal oriented intelligence},
+  \url{https://deeplizard.com/learn/playlist/PLZbbT5o_s2xoWNVdDudn51XM8lOuZ_Njv},
+  2018.
+
+\bibitem{starting_hand_groups}
+David Skalinsky \&~Mason Malmuth, \emph{Starting hand groups},
+  \url{https://www.thepokerbank.com/strategy/basic/starting-hand-selection/sklansky-groups/},
+  1999.
+
+\bibitem{EHS}
+Darse Billings{,} Denis Papp{,} Jonathan Schaeffer{,}~Duane Szafron,
+  \emph{Opponent modeling in poker},
+  \url{http://www.cs.virginia.edu/~evans/poker/wp-content/uploads/2011/02/opponent_modeling_in_poker_billings.pdf},
+  1998.
+
+\end{thebibliography}

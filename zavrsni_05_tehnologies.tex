@@ -18,49 +18,11 @@ Za praćenje promjene u izvornom k\^odu, korišten je git. Slobodan je i otvoren
 \subsection{PyTorch}
 Jedna od biblioteka korištena izvan pythonove standardne biblioteke je PyTorch 1.3.1. Biblioteka je otvorenog k\^oda razvijen u facebookovom laboratoriju za iztraživanje umjetne inteligencije  (eng. \textit{Facebook AI Research lab - FAIR}). Bazira se na torch biblioteke koja se koristi u Lua skriptnom programskom jeziku. Torch se više aktivno ne razvija, međutim pythonova verzija PyTorch je u aktivnom razvoju. Primarne funkcionalnosti koji PyTorch nudi su računalne operacije sa tensorima, kao i NumPy biblioteka. Kompatibilan je sa NumPy bibliotekon, znači NumPy pripoznaje i prihvaća PyTorchov tenzor i obrnuto. Dodatne funkcionalnosti koji PyTorch nudi su duboke neuronske mreže građene na autogradni sustav temeljen na vrpci (eng. \textit{tape-based autograd system}). Dodatno ima mogućnost izvršavati operacije na Cuda sposobnoj grafičkoj procesorskoj jedinici (\emph{NVidia grafičke kartice}) što znantno skraćuje vrijeme treniranje neuronske mreže. Cuda je aplikacijsko programsko sučelje (eng. \textit{application programming interface - API}) koji omogućuje razvijačima softvera (eng. \textit{software developers}) izvršavanje instrukcje na grafičkoj kartici. PyTorch jako pojednostavljuje slaganje, modificiranje i treniranje neuronske mreže, sve osnovne operacije su ukjučene u biblioteci. Autogradni sustav u pozadini čuva graf neuronke mreže s kojim vrlo jednostavno izvršava povratno prostiranje pogreške (eng. \textit{backpropagation}), koristi tehniku autodiferencijacija u obrnutom načinu (eng. \textit{reverse-mode auto-differentiation}). Naslanja se na nekoliko znanstvenih radova, međutim PyTorchova implementacija se najbrže izvršava. Instalirat ga se može kompajliranjem (eng. \textit{compiling}) izvornog k\^oda ili skidanjem već gotove binarne datoteke spremna za izvršavanje. Najjednostavniji način je putem pip naredbe: \lstinline$pip install pytorch$ ili ako se koristi anacondu \lstinline$conda install pytorch -c pytorch$. U k\^odu ga se uključuje sa \pythoninline{import torch}, te moduli koji se često koriste \pythoninline{import torch.nn as nn}, \pythoninline{import torch.nn.functional as F}. Klasa koja implementira neuronsku mrežu trebala bi biti naslijeđena od klase \pythoninline{torch.nn.Module} te implementirat funkciju \pythoninline{forward}, koja se poziva u trenutku kada se prosljeđuje neki ulaz u mrežu. Međutim se ovu funkciju explicitno ne poziva, nego se izvršava u pozadini kada se objekt poziva kao funkciju i kroz argument se prosljedi ulaz. Primjer je dan u ispisu~\ref{pytorch_nn_Module}.
 %\newpage
-\begin{python}[caption={Nasljeđivanje PyTorch torch.nn.Module}, label={pytorch_nn_Module}]
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class MyNet(nn.Module):
-    def __init__(self, input_size: int, output_size: int) -> None:
-        super().__init__()
-        self._fc1 = nn.Linear(in_features=input_size, out_features=64)
-        self._fc2 = nn.Linear(in_features=64, out_features=32)
-        self._out = nn.Linear(in_features=32, out_features=output_size)
-		
-    def forward(self, in_tensor: torch.Tensor) -> torch.Tensor:
-        t = in_tensor
-        t = F.relu(self._fc1(t))
-        t = F.relu(self._fc2(t))
-        t = self._out(t)
-        return t
-
-
-net = MyNet(3, 2)
-
-X = torch.rand(3)
-y = net(X)
-\end{python}
+\pythonexternal[caption={Nasljeđivanje PyTorch torch.nn.Module},label={pytorch_nn_Module}]{code/pytorch_nn_module.py}
 
 ili se pak može složit mrežu sa \pythoninline{torch.nn.Sequental} modulom i u tom slučaju nije potrebno implementirati forward funkciju, nego se podrazumjeva da izlaz predhodnog sloja je ulaz u sljedeći. Primjer korištenje \pythoninline{torch.nn.Sequential} pokazan je ispisom~\ref{pytorch_nn_Sequential}
 
-\begin{python}[caption={Korištenje PyTorch torch.nn.Sequential}, label=pytorch_nn_Sequential]
-import torch
-import torch.nn as nn
-
-net = nn.Sequential()
-net.add_module('fc_0', nn.Linear(in_features=10, out_features=64)
-net.add_module('relu_0', nn.ReLU())
-net.add_module('fc_1' nn.Linear(in_features=64, out_features=32)
-net.add_module('relu_1', nn.ReLU())
-net.add_module('fc_2', nn.Linear(in_features=32, out_features=2)
-net.add_module('softmax_2', nn.Softmax(dim=1))
-
-X = torch.rand(10)
-y = net(X)
-\end{python}
+\pythonexternal[caption={Korištenje PyTorch torch.nn.Sequential},label=pytorch_nn_Sequential]{code/pytorch_nn_sequential.py}
 
 \subsection{Tensorboard}
 Biblioteka je razvijena od tvrtke Google. Pruža alate vizualizacije potrebne za eksperimentiranje sa strojnim učenjem. 
@@ -76,40 +38,7 @@ Dodatno je vrlo jednostavno rezultate objaviti stranici \url{https://tensorboard
 
 PyTorcheva klasa koja omogućuje zapisivanje rezultata u Tensorboard jest \pythoninline{SummaryWriter} i uključuje se sa \pythoninline{from torch.utils.tensorboard import SummaryWriter}. Zapisivanje informacije o modelu i slojeva se odvija pozivanje funkcije \pythoninline{add_graph}, dok se sa funkcijom \pythoninline{add_scalar} dodaju vrijednosti gubitka i/ili točnosti a sa \pythoninline{add_histogram} se dodaju vrijednosti elementih pojedinih slojeva. Sveukupno korištenje ove biblioteke u ovom radu se nalazi u ispisu~\ref{pytorch_summary_writer}
 %\newpage
-\begin{python}[caption={Korištenje Pytorch SummaryWriter}, label=pytorch_summary_writer, escapechar=\#]
-def _init_summary_writer(self) -> None:
-    train_amount = int(
-        self._epsilon / (self._epsilon_decay * len(self._memories))
-    )
-    
-    self._summary_writer = SummaryWriter(
-        comment=f' - {type(self).__name__} : ' +
-                f'alpha={self._alpha}, gamma={self._gamma}, '
-                f'train={train_amount}'
-    )
-    
-    self._summary_writer.add_graph(
-        self._policy_net, 
-        self._current_state[self._memory_index]
-    )
-    
-def _write_train_summary(self) -> None:
-    self._summary_writer.add_scalar(
-        'Reward', self._rewards_sum[self._memory_index],
-        self._episode_cnt[self._memory_index]
-    )
-
-    if self._episode_cnt[self._memory_index] % int(
-            self._train_amount / 100) == 0:
-        for name, param in self._policy_net.named_parameters():
-            self._summary_writer.add_histogram(
-                name, param, self._episode_cnt[self._memory_index]
-            )
-            self._summary_writer.add_histogram(
-                f'{name}_grad', param.grad, 
-                self._episode_cnt[self._memory_index]
-            )
-\end{python}
+\pythonexternal[caption={Korištenje Pytorch SummaryWriter},label=pytorch_summary_writer]{code/pytorch_summary_writer.py}
 
 Vidljivo je u ispisu~\ref{pytorch_summary_writer} da su funkcije \pythoninline{_init_summary_writer} i \pythoninline{_write_train_summary} dio neke klase. Ta klasa je zadužena za učenje agenta te tokom treninga se rezultati zapisuju na TensorBoard. U konstruktor od \pythoninline{SummaryWriter} je prosljeđen argument \pythoninline{comment}, koji služi za razlikovanje više različitih treniranja pa se prosljeđivaju hiperparametri za taj trening. Na slici~\ref{fig:tensorboard_00} je prikazan primjer Tensorborda, uz opise bitnih djelova, u kojem su se pratile rezultate treniranja dvaju modela, te je vidljivo da naziv svakom grafu odgovara izrazu koji je prosljeđen u konstruktor.
 \\[\intextsep]
@@ -147,3 +76,24 @@ Dodatno se tokom učenja zabilježavaju i histogram parametra kako se mijenja, a
 	\label{fig:tensorboard_03}%
 \end{minipage}
 \\[\intextsep]
+
+\subsection{Računalni oblak}
+Učenje je dugotrajan proces, čak i sa suvremenim osobnim računalima. Tako da su se koristile dodatne računalne snage u oblaku, što može ubrzati proces učenja. Osim toga, što je veći broj računalne snage na raspolaganju mogu i više različiti algoritmi istovremeno učiti. Postoje razni ponuđači koji nude mogućnost učenje u oblaku, međutim se ovisno o snazi i prostora pojedinog komponenta računala određena cijena plaća. Pronađene su mogućnosti korištenje računalni oblak koji se ne plaćaju, ali imaju druga ograničenja. Bez obzira su se koristile, jer su u svrhu ovoga rada bili sasvim dovoljne. Jedna od korištenih je Google Colaboratory, koji je izrađen od tvrtke Google. Radno sučelje jako liči na jupyter notebook. Jupyter notebook je alat za pisanje programskog k\^oda gdje se k\^od piše i ćelije. Svaka se ćelija može posebno pokrenuti, što omogućuje brze promjene bez da se cijeli k\^od iz početka pokreće. Dodatno se u ćelije mogu i pisati Markdown oznake koje se izvršavanje ćelije ispravno formatiraju. Ovo omogućuje da se programski k\^od i dokumentacija može nalaziti na istemu mjestu. Za korištenje Google Colaboratory alata, kako i za korištenje bilo kojeg Google alata, potrbno je izraditi Google korisnički račun. Izgled Google Colaboratory radnog sučelja prikazan je na slici~\ref{fig:google_colab}.
+\\[\intextsep]
+\begin{minipage}{\linewidth}
+	\centering%
+	\includegraphics[width=0.8\linewidth,clip=]{images/google_colaboratory.png}%
+	\figcaption{Radno okruženje Google Colaboratory.}%
+	\label{fig:google_colab}%
+\end{minipage}
+\\[\intextsep]
+Ograničenja u korištenju bez plaćanja, su mogućnost korištenje grafičke procesorske jedinice samo na jedan dan i Google Colaboratory mora u web pregledniku biti aktivan. Nakon nekog vremena neaktivnosti se svi procesi prekidaju. Zapravo omogućuju izvršenje puno kratkih procesa, a ne jednog koji se vrti jako dugo. Druga usluga računalnog oblaka koja je korištena je Paperspace. Ovdje se nudi korištenje grafičke procesorske jedinice 6 sati bez plaćanja. Nakon isteka tog vremena, oblak se ruši bez mogućnosti nastavka korištenja istog. Može se novoga pokrenuti, međutim nisu uvjek sve resursi slobodni, kako ih drugi korisnici rezerviraju. Prvo se izabere koje će radni okviri biti unaprijed instalirani i onda se izabere model grafičke kartice. Nakon sastavljanje željenog oblaka podiže se JupyterLab radno okruženje vidljiv na slici~\ref{fig:paperspace}.
+\\[\intextsep]
+\begin{minipage}{\linewidth}
+	\centering%
+	\includegraphics[width=0.8\linewidth,clip=]{images/paperspace.png}%
+	\figcaption{Radno okruženje JupyterLab.}%
+	\label{fig:paperspace}%
+\end{minipage}
+\\[\intextsep]
+Može se primjetiti da u JupyterLab postoji mogućnost, osim otvarati Jupyter Notebook dokumente, otvoriti sučelje naredbenog redka (eng. \textit{command line interface}). Korištenje sučelje naredbenog redka je dosta pojednostavnilo korištenje oblaka u odnosu na jupyter notebook koji se u paperspace nije ni koristio. Moguće je u jupyter notebook izvršavati naredbe ljuske ako se na početak naredbe stavi uskličnik, npr. \pythoninline{\!pwd} koja ispisuje potpunu putanju do trenutačnog radnog direktorija. Za korištenje usluge kod Paperspace potrebno je izraditi korisnički račun, ili se može pak prijaviti sa korisničkom računom od Google ili GitHub.
