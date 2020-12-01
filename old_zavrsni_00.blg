@@ -3,17 +3,19 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: zavrsni_00.aux
 The style file: amsplain.bst
 Database file #1: zavrsni_09_literatura.bib
+Warning--entry type for "ai" isn't style-file defined
+--line 34 of file zavrsni_09_literatura.bib
 You've used 5 entries,
             2213 wiz_defined-function locations,
-            527 strings with 4825 characters,
-and the built_in function-call counts, 1104 in all, are:
-= -- 90
+            526 strings with 4801 characters,
+and the built_in function-call counts, 1084 in all, are:
+= -- 85
 > -- 35
 < -- 0
 + -- 15
 - -- 10
-* -- 57
-:= -- 179
+* -- 52
+:= -- 174
 add.period$ -- 5
 call.type$ -- 5
 change.case$ -- 20
@@ -22,7 +24,7 @@ cite$ -- 5
 duplicate$ -- 55
 empty$ -- 121
 format.name$ -- 10
-if$ -- 236
+if$ -- 231
 int.to.chr$ -- 0
 int.to.str$ -- 5
 missing$ -- 5
@@ -32,7 +34,7 @@ pop$ -- 50
 preamble$ -- 1
 purify$ -- 15
 quote$ -- 0
-skip$ -- 30
+skip$ -- 35
 stack$ -- 0
 substring$ -- 25
 swap$ -- 5
@@ -43,4 +45,5 @@ type$ -- 20
 warning$ -- 0
 while$ -- 10
 width$ -- 6
-write$ -- 54
+write$ -- 49
+(There was 1 warning)
