@@ -1,11 +1,7 @@
-    def _update_policy_net(self, reward: int) -> None:
-        self._policy_net.train()
-
-        batch = self._create_batch()
-        previous_states = batch[0]
-        previous_moves = batch[1]
-        previous_possible_actions = batch[2]
-        next_states = batch[3]
+    def _update_policy_net(self, batch: BatchOfExperiences,
+                           reward: float) -> None:
+        previous_states, previous_actions, \
+            previous_possible_actions, next_states = batch
 
         actual_pred = self._policy_net(torch.cat(previous_states))
         target_pred = self._generate_target_preds(batch, actual_pred, reward)
