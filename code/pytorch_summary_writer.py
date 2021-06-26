@@ -1,33 +1,22 @@
-def _init_summary_writer(self) -> None:
-    train_amount = int(
-        self._epsilon / (self._epsilon_decay * len(self._memories))
-    )
-    
-    self._summary_writer = SummaryWriter(
-        comment=f' - {type(self).__name__} : ' +
-                f'alpha={self._alpha}, gamma={self._gamma}, '
-                f'train={train_amount}'
-    )
-    
-    self._summary_writer.add_graph(
-        self._policy_net, 
-        self._current_state[self._memory_index]
-    )
-    
-def _write_train_summary(self) -> None:
-    self._summary_writer.add_scalar(
-        'Reward', self._rewards_sum[self._memory_index],
-        self._episode_cnt[self._memory_index]
-    )
+from torch.utils.tensorboard import SummaryWriter
 
-    if self._episode_cnt[self._memory_index] % int(
-            self._train_amount / 100) == 0:
-        for name, param in self._policy_net.named_parameters():
-            self._summary_writer.add_histogram(
-                name, param, self._episode_cnt[self._memory_index]
-            )
-            self._summary_writer.add_histogram(
-                f'{name}_grad', param.grad, 
-                self._episode_cnt[self._memory_index]
-            )
+def _init_summary_writer(self) -> None:
+    dummy_input = self._generate_dummy_input()
+    log_dir_path = self._generate_log_dir_path()
+
+    self._summary_writer = SummaryWriter(log_dir=str(log_dir_path))
+    self._summary_writer.add_graph(self._model, dummy_input)
+
+def monitor(self) -> None:
+    progress = self._progress
+    self._summary_writer.add_scalar('Progress', progress, self._step)
+
+    for name, param in self._model.named_parameters():
+        self._summary_writer.add_histogram(name, param, self._step)
+        self._summary_writer.add_histogram(f'{name}_grad', param.grad, self._step)
+
+    self._step += 1
+
+def close(self) -> None:
+    self._summary_writer.close()
 
