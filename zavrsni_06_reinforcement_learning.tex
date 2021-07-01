@@ -2,11 +2,11 @@
 Najistaknutije osobine pojačanog učenja su pokušaj i neuspjeh, te odgođena nagrada koju algoritam doživljava u okruženju. Algoritam bi trebao, do neke razine, imati osjećaj i informacije o okolini, te cilj ili ciljeve prema kojima teži, a odnose se na određeno stanje u okolini.
 
 \subsection{Umjetna inteligencija}
-Umjetna inteligencija je jako široko područje računalne znanosti. Bavi se proučavanjem i izradom algoritama koji nemaju eksplicitne naredbe kako se ponašati u nekom trenutku i/ili okolini, nego kroz određene procese sami uspiju donijeti zaključke i odluke. Umjetna inteligencija se dijeli u puno pod grana, koje se u prošlosti nisu smatrali toliko srdonim koliko danas. U današnje doba se iskazao potencijal umjetne inteligencije i sve više se ulaže u njezino istraživanje i razvoj. 
+Umjetna inteligencija je jako široko područje računalne znanosti. Bavi se proučavanjem i izradom algoritama koji nemaju eksplicitne naredbe kako se ponašati u nekom trenutku i/ili okolini, nego kroz određene procese sami uspiju donijeti zaključke i odluke. Umjetna inteligencija se dijeli u puno pod grana, koje se u prošlosti nisu smatrali toliko srodnim koliko danas. U današnje doba se iskazao potencijal umjetne inteligencije i sve više se ulaže u njezino istraživanje i razvoj. 
 
 Umjetna inteligencija se dijeli na više grana kao što su:
 \begin{itemize}
-	\item Rasuđivanje i rješavanje problema: Gdje se pokušava implementirati razbijanje problema u logičke korake do rješenja te postepenim izvršavanjem tih koraka riješiti zadani problem. Ovakvi algoritmi se nisu iskazali korisnima u velikim problemima zbog kombinatorijske eksplozije, znači rastom problema algoritam eksponencijalno usporava.
+	\item Rasuđivanje i rješavanje problema: Gdje se pokušava implementirati razbijanje problema u logičke korake do rješenja te postepenim izvršavanjem tih koraka riješiti zadani problem. Ovakvi algoritmi se nisu iskazali korisnima u velikim problemima zbog kombinatorne eksplozije, znači rastom problema algoritam eksponencijalno usporava.
 	
 	\item Reprezentacija znanja: Ovo je glavno područje u istraživanju klasične umjetne inteligencije. Skupljaju se znanja od nekog područja i pohranjuju se u neku bazu u kojoj se istaknu pojmovi i veze između njih. Neke od stvari koje se nalaze u takvoj bazi su: predmeti, svojstva, vrste i odnosi između predmeta, situacija, događaja, stanja i vremena, uzroci i posljedice, znanje o znanju i još puno onih manje istraženih područja.
 	
@@ -26,8 +26,8 @@ Umjetna inteligencija se dijeli na više grana kao što su:
 \end{itemize}
 
 \subsection{Strojno učenje}
-U ovome završnom radu se razradilo područje iz učenja. Pa tako se i ovo područje grana na više potpodručja. Među najpoznatijima su učenje s nazorom (eng. \textit{supervised learning}) u kojemu algoritam dobije skup podataka iz kojih treba donijet neke zaključke, te skup rješenja, odnosno definirane zaključke koje bi trebao donijeti. Tako da kroz neko vrijeme koje je dodijeljeno za učenje, primi podatak, donese odluku i ovisno 
-o tome koji je unaprijed definirani zaključak kojeg je trebao donijeti se prilagodi da u buduće donosi što ispravnije odluke. Druga grana se zove učenje bez nazora (eng. \textit{unsupervised learning}), gdje algoritam prima neki skup podataka i vremenom uspije pronaći razlike i sličnosti u podacima. Nema informacije o tome što podatak predstavlja ali zna podatke svrstati u svoje definirane kategorije. Izrađeni agent iz ovog projekta spada pod skupinom pojačanog učenja (eng. \textit{reinforcement learning}). U ovoj grani algoritam djeluje u nekom okruženju pomoću određenih akcija, te u početku nema informacije o tome kako akcije utječu na okruženje. Te vremenom mora sam otkriti koje akcije u kojem trenutku donose najveću nagradu.
+U ovome završnom radu se razradilo područje iz učenja. Pa tako se i ovo područje grana na više potpodručja. Među najpoznatijima su učenje s nadzorom (eng. \textit{supervised learning}) u kojemu algoritam dobije skup podataka iz kojih treba donijet neke zaključke, te skup rješenja, odnosno definirane zaključke koje bi trebao donijeti. Tako da kroz neko vrijeme koje je dodijeljeno za učenje, primi podatak, donese odluku i ovisno 
+o tome koji je unaprijed definirani zaključak kojeg je trebao donijeti se prilagodi da u buduće donosi što ispravnije odluke. Druga grana se zove učenje bez nadzora (eng. \textit{unsupervised learning}), gdje algoritam prima neki skup podataka i vremenom uspije pronaći razlike i sličnosti u podacima. Nema informacije o tome što podatak predstavlja ali zna podatke svrstati u svoje definirane kategorije. Izrađeni agent iz ovog projekta spada pod skupinom pojačanog učenja (eng. \textit{reinforcement learning}). U ovoj grani algoritam djeluje u nekom okruženju pomoću određenih akcija, te u početku nema informacije o tome kako akcije utječu na okruženje. Te vremenom mora sam otkriti koje akcije u kojem trenutku donose najveću nagradu.
 
 
 \subsection{Povijest pojačanog učenja}
@@ -77,8 +77,8 @@ Očekivana nagrada $G_t$ se računa kao zbroj svih budućih nagrada $G_T = R_{t+
 
 \subsection{Politike i funkcije vrijednosti}
 Politika određuje agentov sljedeći potez, kroz skupljanje iskustva ta politika se može mijenjati. Označava se sa $\pi$ i definira distribuciju vjerojatnosti preko $a \in A(s)$ za svaki $s \in S$, tako da konačne vjerojatnosti svake akcije $a = A_t$ u stanju $s = S_t$ su opisane politikom $\pi(a|s)$.
-Za opisivanje agentu dali se nalazi u dobrom stanju ili opisivanje agentu koliko je dobra akcija za neko stanje zadužene su funkcije vrijednosti. Koliko je dobro stanje, odnosno koliko je dobra neka akcija u nekom stanju agentu se daje do znanja pomoću vrijednosti očekivane nagrade. Funkcije vrijednosti se definiraju u odnosu na policu, pošto ona utječe na donošenje agentove odluke.
-Jedna od funkcija vrijednosti je funkcija vrijednosti stanja i pomoću nje agent dobije informaciju o očekivanoj nagradi, dok prati policu $\pi$, počevši od stanja $s$ u trenutku $t$. Formalno se označava matematičkom jednadžbom~\ref{eq:state_value_function}.
+Za opisivanje agentu dali se nalazi u dobrom stanju ili opisivanje agentu koliko je dobra akcija za neko stanje zadužene su funkcije vrijednosti. Koliko je dobro stanje, odnosno koliko je dobra neka akcija u nekom stanju agentu se daje do znanja pomoću vrijednosti očekivane nagrade. Funkcije vrijednosti se definiraju u odnosu na politiku, pošto ona utječe na donošenje agentove odluke.
+Jedna od funkcija vrijednosti je funkcija vrijednosti stanja i pomoću nje agent dobije informaciju o očekivanoj nagradi, dok prati politiku $\pi$, počevši od stanja $s$ u trenutku $t$. Formalno se označava matematičkom jednadžbom~\ref{eq:state_value_function}.
 \begin{equation}\label{eq:state_value_function}
 	\begin{split}
 		v_\pi(s) &= \mathbb{E}_\pi[G_t | S_t = s] \\
